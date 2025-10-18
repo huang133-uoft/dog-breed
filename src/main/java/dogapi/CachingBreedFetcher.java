@@ -1,5 +1,6 @@
 package dogapi;
 
+import java.io.IOException;
 import java.util.*;
 
 /**
@@ -13,16 +14,31 @@ import java.util.*;
  * The cache maps the name of a breed to its list of sub breed names.
  */
 public class CachingBreedFetcher implements BreedFetcher {
-    // TODO Task 2: Complete this class
+
+    private final BreedFetcher delegate;
+    private final Map<String, List<String>> cache = new HashMap<>();
+
     private int callsMade = 0;
     public CachingBreedFetcher(BreedFetcher fetcher) {
-
+        this.delegate = fetcher;
     }
 
     @Override
-    public List<String> getSubBreeds(String breed) {
+    public List<String> getSubBreeds(String breed) throws BreedNotFoundException {
         // return statement included so that the starter code can compile and run.
-        return new ArrayList<>();
+        if (breed == null) throw new IllegalArgumentException("breed is null");
+        String key = breed.trim().toLowerCase();
+
+        List<String> result = cache.get(key);
+        if (result != null) return result;
+
+        callsMade++;
+        List<String> newResult;
+        newResult = delegate.getSubBreeds(key);
+        List<String> immutable = Collections.unmodifiableList(newResult);
+        cache.put(key, immutable);
+        return immutable;
+
     }
 
     public int getCallsMade() {
