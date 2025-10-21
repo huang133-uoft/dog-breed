@@ -13,13 +13,18 @@ public interface BreedFetcher {
      * @param breed the breed to fetch sub breeds for
      * @return list of sub breeds for the given breed
      * @throws BreedNotFoundException if the breed does not exist
-     */
+    
     List<String> getSubBreeds(String breed) throws BreedNotFoundException;
-
-    /** CHECKED exception required by the tests. */
-    class BreedNotFoundException extends Exception {
-        public BreedNotFoundException(String breed) { super("Breed not found: " + breed); }
-        public BreedNotFoundException(String breed, Throwable cause) { super("Breed not found: " + breed, cause); }
-        public BreedNotFoundException(String message, boolean raw) { super(message); }
+    // a class defined in an interface is public AND static
+    class BreedNotFoundException extends RuntimeException {
+        public BreedNotFoundException(String breed) {
+            super("Breed not found: " + breed);
+        }
+        public BreedNotFoundException(String breed, Throwable cause) {
+            super("Breed not found: " + breed, cause);
+        }
+        public BreedNotFoundException(String message, boolean raw) {  // helper for custom messages
+                super(message);
+        }
     }
 }
