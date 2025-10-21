@@ -24,7 +24,7 @@ public interface BreedFetcher {
             super("Breed not found: " + breed, cause);
         }
         public BreedNotFoundException(String message, boolean raw) {  // helper for custom messages
-                super(message);
+            super(message);
         }
     }
 }
