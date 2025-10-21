@@ -19,7 +19,7 @@ import static java.nio.charset.StandardCharsets.UTF_8;
  * exceptions to align with the requirements of the BreedFetcher interface.
  */
 public class DogApiBreedFetcher implements BreedFetcher {
-    private static final String BASE = "https://dog.ceo/api/breed/";
+    private static final String BASE = "https://dog.ceo/api/breeds/image/random";
     private final OkHttpClient client = new OkHttpClient();
 
     /**
