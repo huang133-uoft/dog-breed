@@ -16,11 +16,7 @@ public class BreedFetcherForLocalTesting implements BreedFetcher {
         if ("hound".equalsIgnoreCase(breed)) {
             return List.of("afghan", "basset");
         }
-        try {
-            throw new BreedNotFoundException(breed);
-        } catch (BreedNotFoundException e) {
-            throw new RuntimeException(e);
-        }
+        throw new BreedNotFoundException(breed);
     }
 
     public int getCallCount() {
