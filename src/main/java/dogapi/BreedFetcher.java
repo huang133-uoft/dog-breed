@@ -23,7 +23,8 @@ public interface BreedFetcher {
         public BreedNotFoundException(String breed, Throwable cause) {
             super("Breed not found: " + breed, cause);
         }
-        public BreedNotFoundException(String message, boolean raw) {  // helper for custom messages
+        /** Helper for custom messages. */
+        public BreedNotFoundException(String message, boolean raw) {
             super(message);
         }
     }
