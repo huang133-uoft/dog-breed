@@ -16,15 +16,16 @@ public interface BreedFetcher {
      */
     List<String> getSubBreeds(String breed) throws BreedNotFoundException;
     // a class defined in an interface is public AND static
-    class BreedNotFoundException extends RuntimeException {
+    class BreedNotFoundException extends Exception {
         public BreedNotFoundException(String breed) {
             super("Breed not found: " + breed);
         }
         public BreedNotFoundException(String breed, Throwable cause) {
             super("Breed not found: " + breed, cause);
         }
-        public BreedNotFoundException(String message, boolean raw) {  // helper for custom messages
-                super(message);
+        /** Helper for custom messages. */
+        public BreedNotFoundException(String message, boolean raw) {
+            super(message);
         }
     }
 }
