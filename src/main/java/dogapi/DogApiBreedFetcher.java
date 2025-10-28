@@ -10,7 +10,6 @@ import java.io.IOException;
 import java.net.URLEncoder;
 import java.util.*;
 
-import static java.net.URLEncoder.encode;
 import static java.nio.charset.StandardCharsets.UTF_8;
 
 /**
@@ -51,9 +50,9 @@ public class DogApiBreedFetcher implements BreedFetcher {
 
             if ("success".equalsIgnoreCase(status)) {
                 JSONArray arr = jsonObject.getJSONArray("message");
-                List<String> out = new ArrayList<>(arr.length());
-                for (int i = 0; i < arr.length(); i++) out.add(arr.getString(i));
-                return Collections.unmodifiableList(out);
+                List<String> outp = new ArrayList<>(arr.length());
+                for (int i = 0; i < arr.length(); i++) outp.add(arr.getString(i));
+                return Collections.unmodifiableList(outp);
             }
 
             if ("error".equalsIgnoreCase(status) && jsonObject.optInt("code", 0) == 404) {
@@ -63,7 +62,6 @@ public class DogApiBreedFetcher implements BreedFetcher {
         } catch (IOException ioe) {
             throw new BreedNotFoundException("Network/API error while fetching " + normalizedBreed + ": " + ioe.getMessage(), true);
         } catch (Exception e) {
-            // JSON parsing or any other unexpected error
             throw new BreedNotFoundException("Failed to parse API response for " + normalizedBreed + ": " + e.getMessage(), true);
         }
 
